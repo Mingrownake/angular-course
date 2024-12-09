@@ -1,0 +1,15 @@
+<div class="calculator">
+  <h2 class="calculator__title">Калькулятор</h2>
+  <div class="calculator__wrapper">
+    <input type="number" class="calculator__input" [(ngModel)]="firstOperand">
+    <select [(ngModel)]="selectOperation">
+      <option [value]="operator" *ngFor="let operator of operations">{{operator}}</option>
+    </select>
+    <input type="number" class="calculator__input" [(ngModel)]="secondOperand">
+  </div>
+  <div>
+    <span><b>Результат: </b></span>
+    <span class="calculator__result">{{result !== undefined ? result : 'Нажмите рассчитать!'}}</span>
+  </div>
+  <button (click)="calc()">Рассчитать</button>
+</div>

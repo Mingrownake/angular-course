@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title: string = "I love Angular!";
+  public title: string = "I love Angular!";
+  public tooltip: string = "Enter word";
+  public alertButton() {
+    alert("Clicked!");
+  };
 }
