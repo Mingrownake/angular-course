@@ -14,6 +14,7 @@ export class MyCalculatorComponent {
   public result: number | undefined = undefined;
 
   public calc() {
+    let correctResult: boolean = true;
     if (this.firstOperand !== undefined && this.secondOperand !== undefined) {
       switch(this.selectOperation) {
         case '+': {
@@ -26,9 +27,11 @@ export class MyCalculatorComponent {
           this.result = this.firstOperand * this.secondOperand;
           break;
         } case '/': {
-          if (this.secondOperand != 0) {
-            this.result = this.firstOperand / this.secondOperand;
+          if (this.secondOperand == 0) {
+            correctResult = false;
+            break;
           }
+          this.result = this.firstOperand / this.secondOperand;
           break;
         } case 'cos': {
           this.result = Math.cos(this.firstOperand);
@@ -41,7 +44,9 @@ export class MyCalculatorComponent {
           break;
         }
       }
-      this.writeOperation(this.firstOperand, this.secondOperand, this.result, this.selectOperation);
+      if (correctResult) {
+        this.writeOperation(this.firstOperand, this.secondOperand, this.result, this.selectOperation);
+      }
       this.firstOperand = 0;
       this.secondOperand = 0;
     }
