@@ -1,15 +1,30 @@
-<div class="calculator">
-  <h2 class="calculator__title">Калькулятор</h2>
-  <div class="calculator__wrapper">
-    <input type="number" class="calculator__input" [(ngModel)]="firstOperand">
-    <select [(ngModel)]="selectOperation">
-      <option [value]="operator" *ngFor="let operator of operations">{{operator}}</option>
-    </select>
-    <input type="number" class="calculator__input" [(ngModel)]="secondOperand">
+<div class="flex w-full max-w-screen-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+  <div class="flex-1">
+    <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Калькулятор</h5>
+    <div class="mb-6">
+      <label for="firstOperand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Введите число</label>
+      <input type="number" name="firstOperand" id="firstOperand" [(ngModel)]="firstOperand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+    <div class="mb-6">
+      <label for="secondOperand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Введите число</label>
+      <input type="number" name="secondOperand" id="secondOperand" [(ngModel)]="secondOperand" [disabled]="isOrdinaryOperations()" [ngClass]="{'bg-gray-300': isOrdinaryOperations()}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+    <div class="mb-6">
+      <label for="operator" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Выберите действие</label>
+      <select [(ngModel)]="selectOperation" name="operator" id="operator" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option [value]="operator" *ngFor="let operator of operations">{{operator}}</option>
+      </select>
+    </div>
+    <button type="button" (click)="calc()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Рассчитать</button>
+    <div class="mb-6">
+      <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Результат:</h5>
+      <span class="font-medium">{{result == undefined ? 0 : result}}</span>
+    </div>
   </div>
-  <div>
-    <span><b>Результат: </b></span>
-    <span class="calculator__result">{{result !== undefined ? result : 'Нажмите рассчитать!'}}</span>
+  <div class="flex-1">
+    <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">История</h5>
+    <div *ngIf="history.length != 0" class="max-h-full border border-gray-200 rounded-lg px-4 py-2 bg-white rounded-b-lg dark:bg-gray-800">
+      <p class="font-medium mb-4" *ngFor="let operation of history">{{operation}}</p>
+    </div>
   </div>
-  <button (click)="calc()">Рассчитать</button>
 </div>
